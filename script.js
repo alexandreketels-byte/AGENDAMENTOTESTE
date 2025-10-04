@@ -45,7 +45,7 @@ search.addEventListener("keydown", e => {
 // Mostrar tabela
 function mostrarResultados(fabricante) {
   tbody.innerHTML = "";
-  const filtrados = dados.filter(d => d.fabricante.toLowerCase() === cidade.toLowerCase());
+  const filtrados = dados.filter(d => d.fabricante.toLowerCase() === fabricante.toLowerCase());
   filtrados.forEach(d => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
