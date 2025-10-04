@@ -20,7 +20,7 @@ search.addEventListener("input", () => {
   const termo = search.value.toLowerCase();
   suggestions.innerHTML = "";
   if (termo.length > 0) {
-    const filtrados = dados.filter(d => d.cidade.toLowerCase().includes(termo));
+    const filtrados = dados.filter(d => d.fabricante.toLowerCase().includes(termo));
     filtrados.slice(0, 5).forEach(d => {
       const li = document.createElement("li");
       li.textContent = d.fabricante;
@@ -43,7 +43,7 @@ search.addEventListener("keydown", e => {
 });
 
 // Mostrar tabela
-function mostrarResultados(cidade) {
+function mostrarResultados(fabricante) {
   tbody.innerHTML = "";
   const filtrados = dados.filter(d => d.cidade.toLowerCase() === cidade.toLowerCase());
   filtrados.forEach(d => {
