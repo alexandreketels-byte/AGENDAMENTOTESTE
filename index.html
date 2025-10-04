@@ -14,21 +14,24 @@
         Faturado S/ Agendamento
       </a>
     </p>
-    <input type="text" id="search" placeholder="Digite o fabricante..." autocomplete="off">
-    <ul id="suggestions"></ul>
-    <table id="results">
-      <thead>
-        <tr>
-          <th>Fabricante</th>
-          <th>Data</th>
-          <th>Codigo</th>
-          <th>Produto</th>
-          <th>Qtd</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-  <script src="script.js"></script>
-</body>
-</html>
+    <input type="text" id="searchFabricante" placeholder="Buscar fabricante">
+<ul id="suggestionsFabricante"></ul>
+
+<input type="text" id="searchCodigo" placeholder="Buscar código">
+<ul id="suggestionsCodigo"></ul>
+
+<input type="text" id="searchProduto" placeholder="Buscar produto">
+<ul id="suggestionsProduto"></ul>
+
+<table id="results">
+  <thead>
+    <tr>
+      <th>Fabricante</th>
+      <th>Data</th>
+      <th>Código</th>
+      <th>Produto</th>
+      <th>Qtd</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
