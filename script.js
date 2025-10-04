@@ -10,42 +10,50 @@ fetch("dados.csv")
     });
   });
 
-// Elementos
-const search = document.getElementById("search");
-const suggestions = document.getElementById("suggestions");
-const tbody = document.querySelector("#results tbody");
+// Função genérica de sugestões
+function setupSearch(inputId, suggestionsId, campo, exato = false) {
+  const input = document.getElementById(inputId);
+  const suggestions = document.getElementById(suggestionsId);
 
-// Função de sugestões
-search.addEventListener("input", () => {
-  const termo = search.value.toLowerCase();
-  suggestions.innerHTML = "";
-  if (termo.length > 0) {
-    const filtrados = dados.filter(d => d.fabricante.toLowerCase().includes(termo));
-    filtrados.slice(0, 5).forEach(d => {
-      const li = document.createElement("li");
-      li.textContent = d.fabricante;
-      li.onclick = () => {
-        search.value = d.fabricante;
-        suggestions.innerHTML = "";
-        mostrarResultados(d.fabricante);
-      };
-      suggestions.appendChild(li);
-    });
-  }
-});
-
-// Enter para pesquisar
-search.addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-    mostrarResultados(search.value);
+  input.addEventListener("input", () => {
+    const termo = input.value.toLowerCase();
     suggestions.innerHTML = "";
-  }
-});
+    if (termo.length > 0) {
+      const filtrados = dados.filter(d => {
+        const valor = d[campo].toLowerCase();
+        return exato ? valor === termo : valor.includes(termo);
+      });
+      filtrados.slice(0, 5).forEach(d => {
+        const li = document.createElement("li");
+        li.textContent = d[campo];
+        li.onclick = () => {
+          input.value = d[campo];
+          suggestions.innerHTML = "";
+          mostrarResultados(input.value, campo, exato);
+        };
+        suggestions.appendChild(li);
+      });
+    }
+  });
 
-// Mostrar tabela
-function mostrarResultados(fabricante) {
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      mostrarResultados(input.value, campo, exato);
+      suggestions.innerHTML = "";
+    }
+  });
+}
+
+// Mostra resultados filtrando pelo campo específico
+function mostrarResultados(valor, campo, exato) {
+  const tbody = document.querySelector("#results tbody");
   tbody.innerHTML = "";
-  const filtrados = dados.filter(d => d.fabricante.toLowerCase() === fabricante.toLowerCase());
+
+  const filtrados = dados.filter(d => {
+    const dadoCampo = d[campo].toLowerCase();
+    return exato ? dadoCampo === valor.toLowerCase() : dadoCampo.includes(valor.toLowerCase());
+  });
+
   filtrados.forEach(d => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
@@ -58,3 +66,8 @@ function mostrarResultados(fabricante) {
     tbody.appendChild(tr);
   });
 }
+
+// Configura os 3 campos
+setupSearch("searchFabricante", "suggestionsFabricante", "fabricante", false);
+setupSearch("searchCodigo", "suggestionsCodigo", "codigo", true); // código busca exata
+setupSearch("searchProduto", "suggestionsProduto", "produto", false); // produto busca aproximada
