@@ -5,8 +5,8 @@ fetch("dados.csv")
   .then(response => response.text())
   .then(text => {
     dados = text.split("\n").slice(1).map(linha => {
-      const [fabricante, data, codigo, produto, qtd] = linha.split(",");
-      return { fabricante, data, codigo, produto, qtd };
+      const [FABRICANTE, DATA, CODIGO, PRODUTO, QTD] = linha.split(",");
+      return { FABRICANTE, DATA, CODIGO, PRODUTO, QTD };
     });
   });
 
