@@ -8,30 +8,36 @@
 <body>
   <div class="container">
     <h1>AGENDAMENTOS</h1>
-    <!-- Novo link -->
+
     <p>
       <a href="uf_transportadoras.jpeg" target="_blank" class="link-uf">
         Faturado S/ Agendamento
       </a>
     </p>
-    <input type="text" id="searchFabricante" placeholder="Buscar fabricante">
-<ul id="suggestionsFabricante"></ul>
 
-<input type="text" id="searchCodigo" placeholder="Buscar código">
-<ul id="suggestionsCodigo"></ul>
+    <!-- Campos de pesquisa -->
+    <input type="text" id="searchFabricante" placeholder="Pesquisar Fabricante..." autocomplete="off">
+    <ul id="suggestionsFabricante" class="suggestions"></ul>
 
-<input type="text" id="searchProduto" placeholder="Buscar produto">
-<ul id="suggestionsProduto"></ul>
+    <input type="text" id="searchCodigo" placeholder="Pesquisar Código..." autocomplete="off">
+    <ul id="suggestionsCodigo" class="suggestions"></ul>
 
-<table id="results">
-  <thead>
-    <tr>
-      <th>Fabricante</th>
-      <th>Data</th>
-      <th>Código</th>
-      <th>Produto</th>
-      <th>Qtd</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
+    <input type="text" id="searchProduto" placeholder="Pesquisar Produto..." autocomplete="off">
+    <ul id="suggestionsProduto" class="suggestions"></ul>
+
+    <table id="results">
+      <thead>
+        <tr>
+          <th>Fabricante</th>
+          <th>Data</th>
+          <th>Código</th>
+          <th>Produto</th>
+          <th>Qtd</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
