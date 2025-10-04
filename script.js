@@ -23,35 +23,44 @@ function setupSearch(inputId, suggestionsId, campo, exato = false) {
         const valor = d[campo].toLowerCase();
         return exato ? valor === termo : valor.includes(termo);
       });
+
+      // Mostra até 5 sugestões
       filtrados.slice(0, 5).forEach(d => {
         const li = document.createElement("li");
         li.textContent = d[campo];
         li.onclick = () => {
           input.value = d[campo];
           suggestions.innerHTML = "";
-          mostrarResultados(input.value, campo, exato);
+          mostrarResultados(); // atualiza tabela com todos os filtros
         };
         suggestions.appendChild(li);
       });
     }
   });
 
+  // Enter para pesquisar
   input.addEventListener("keydown", e => {
     if (e.key === "Enter") {
-      mostrarResultados(input.value, campo, exato);
+      mostrarResultados();
       suggestions.innerHTML = "";
     }
   });
 }
 
-// Mostra resultados filtrando pelo campo específico
-function mostrarResultados(valor, campo, exato) {
+// Função para mostrar resultados aplicando os filtros de todas as caixas
+function mostrarResultados() {
   const tbody = document.querySelector("#results tbody");
   tbody.innerHTML = "";
 
+  const fabricanteFiltro = document.getElementById("searchFabricante").value.toLowerCase();
+  const codigoFiltro = document.getElementById("searchCodigo").value.toLowerCase();
+  const produtoFiltro = document.getElementById("searchProduto").value.toLowerCase();
+
   const filtrados = dados.filter(d => {
-    const dadoCampo = d[campo].toLowerCase();
-    return exato ? dadoCampo === valor.toLowerCase() : dadoCampo.includes(valor.toLowerCase());
+    const f = d.fabricante.toLowerCase().includes(fabricanteFiltro);
+    const c = codigoFiltro ? d.codigo.toLowerCase() === codigoFiltro : true;
+    const p = d.produto.toLowerCase().includes(produtoFiltro);
+    return f && c && p;
   });
 
   filtrados.forEach(d => {
@@ -67,7 +76,7 @@ function mostrarResultados(valor, campo, exato) {
   });
 }
 
-// Configura os 3 campos
+// Configura os 3 campos de pesquisa
 setupSearch("searchFabricante", "suggestionsFabricante", "fabricante", false);
-setupSearch("searchCodigo", "suggestionsCodigo", "codigo", true); // código busca exata
-setupSearch("searchProduto", "suggestionsProduto", "produto", false); // produto busca aproximada
+setupSearch("searchCodigo", "suggestionsCodigo", "codigo", true);
+setupSearch("searchProduto", "suggestionsProduto", "produto", false);
