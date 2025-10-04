@@ -1,17 +1,34 @@
-let dados = [];
+    let dados = []; // seu CSV já carregado
 
-// Carrega o CSV
-fetch("dados.csv")
-  .then(response => response.text())
-  .then(text => {
-    dados = text.split("\n").slice(1).map(linha => {
-      const [fabricante, data, codigo, produto, qtd] = linha.split(",");
-      return { fabricante, data, codigo, produto, qtd };
-    });
-  });
+// Exemplo: dados já carregados
+// dados = [
+//   { fabricante: "ABC Indústria", data: "2025-10-01", codigo: "123", produto: "Produto X", qtd: "10" },
+//   ...
+// ];
+
+// Função para calcular distância de Levenshtein
+function levenshtein(a, b) {
+  const matrix = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,       // deleção
+        matrix[i][j - 1] + 1,       // inserção
+        matrix[i - 1][j - 1] + cost // substituição
+      );
+    }
+  }
+
+  return matrix[a.length][b.length];
+}
 
 // Função genérica de sugestões
-function setupSearch(inputId, suggestionsId, campo, exato = false) {
+function setupSearch(inputId, suggestionsId, campo, exato = false, fuzzy = false) {
   const input = document.getElementById(inputId);
   const suggestions = document.getElementById(suggestionsId);
 
@@ -19,26 +36,30 @@ function setupSearch(inputId, suggestionsId, campo, exato = false) {
     const termo = input.value.toLowerCase();
     suggestions.innerHTML = "";
     if (termo.length > 0) {
-      const filtrados = dados.filter(d => {
-        const valor = d[campo].toLowerCase();
-        return exato ? valor === termo : valor.includes(termo);
-      });
+      let filtrados;
+      if (fuzzy) {
+        // busca fuzzy: distância <= 2
+        filtrados = dados.filter(d => levenshtein(d[campo].toLowerCase(), termo) <= 2);
+      } else {
+        filtrados = dados.filter(d => {
+          const valor = d[campo].toLowerCase();
+          return exato ? valor === termo : valor.includes(termo);
+        });
+      }
 
-      // Mostra até 5 sugestões
       filtrados.slice(0, 5).forEach(d => {
         const li = document.createElement("li");
         li.textContent = d[campo];
         li.onclick = () => {
           input.value = d[campo];
           suggestions.innerHTML = "";
-          mostrarResultados(); // atualiza tabela com todos os filtros
+          mostrarResultados();
         };
         suggestions.appendChild(li);
       });
     }
   });
 
-  // Enter para pesquisar
   input.addEventListener("keydown", e => {
     if (e.key === "Enter") {
       mostrarResultados();
@@ -47,7 +68,7 @@ function setupSearch(inputId, suggestionsId, campo, exato = false) {
   });
 }
 
-// Função para mostrar resultados aplicando os filtros de todas as caixas
+// Função para mostrar resultados com todos os filtros
 function mostrarResultados() {
   const tbody = document.querySelector("#results tbody");
   tbody.innerHTML = "";
@@ -59,7 +80,9 @@ function mostrarResultados() {
   const filtrados = dados.filter(d => {
     const f = d.fabricante.toLowerCase().includes(fabricanteFiltro);
     const c = codigoFiltro ? d.codigo.toLowerCase() === codigoFiltro : true;
-    const p = d.produto.toLowerCase().includes(produtoFiltro);
+    const p = produtoFiltro
+      ? levenshtein(d.produto.toLowerCase(), produtoFiltro) <= 2
+      : true; // fuzzy para produto
     return f && c && p;
   });
 
@@ -79,4 +102,4 @@ function mostrarResultados() {
 // Configura os 3 campos de pesquisa
 setupSearch("searchFabricante", "suggestionsFabricante", "fabricante", false);
 setupSearch("searchCodigo", "suggestionsCodigo", "codigo", true);
-setupSearch("searchProduto", "suggestionsProduto", "produto", false);
+setupSearch("searchProduto", "suggestionsProduto", "produto", false, true); // fuzzy
