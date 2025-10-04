@@ -1,91 +1,52 @@
-    let dados = []; // seu CSV já carregado
+   let dados = [];
 
-// Exemplo: dados já carregados
-// dados = [
-//   { fabricante: "ABC Indústria", data: "2025-10-01", codigo: "123", produto: "Produto X", qtd: "10" },
-//   ...
-// ];
+// Carrega o CSV
+fetch("dados.csv")
+  .then(response => response.text())
+  .then(text => {
+    dados = text.split("\n").slice(1).map(linha => {
+      const [fabricante, data, codigo, produto, qtd] = linha.split(",");
+      return { fabricante, data, codigo, produto, qtd };
+    });
+  });
 
-// Função para calcular distância de Levenshtein
-function levenshtein(a, b) {
-  const matrix = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
-
-  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
-  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
-
-  for (let i = 1; i <= a.length; i++) {
-    for (let j = 1; j <= b.length; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      matrix[i][j] = Math.min(
-        matrix[i - 1][j] + 1,       // deleção
-        matrix[i][j - 1] + 1,       // inserção
-        matrix[i - 1][j - 1] + cost // substituição
-      );
-    }
-  }
-
-  return matrix[a.length][b.length];
-}
+// Elementos
+const tbody = document.querySelector("#results tbody");
 
 // Função genérica de sugestões
-function setupSearch(inputId, suggestionsId, campo, exato = false, fuzzy = false) {
-  const input = document.getElementById(inputId);
-  const suggestions = document.getElementById(suggestionsId);
-
-  input.addEventListener("input", () => {
-    const termo = input.value.toLowerCase();
-    suggestions.innerHTML = "";
+function configurarPesquisa(campoInput, campoSugestoes, propriedade) {
+  campoInput.addEventListener("input", () => {
+    const termo = campoInput.value.toLowerCase();
+    campoSugestoes.innerHTML = "";
     if (termo.length > 0) {
-      let filtrados;
-      if (fuzzy) {
-        // busca fuzzy: distância <= 2
-        filtrados = dados.filter(d => levenshtein(d[campo].toLowerCase(), termo) <= 2);
-      } else {
-        filtrados = dados.filter(d => {
-          const valor = d[campo].toLowerCase();
-          return exato ? valor === termo : valor.includes(termo);
-        });
-      }
-
-      filtrados.slice(0, 5).forEach(d => {
+      const filtrados = dados.filter(d => d[propriedade]?.toLowerCase().includes(termo));
+      const unicos = [...new Set(filtrados.map(d => d[propriedade]))]; // evitar repetições
+      unicos.slice(0, 5).forEach(valor => {
         const li = document.createElement("li");
-        li.textContent = d[campo];
+        li.textContent = valor;
         li.onclick = () => {
-          input.value = d[campo];
-          suggestions.innerHTML = "";
-          mostrarResultados();
+          campoInput.value = valor;
+          campoSugestoes.innerHTML = "";
+          mostrarResultados(valor, propriedade);
         };
-        suggestions.appendChild(li);
+        campoSugestoes.appendChild(li);
       });
     }
   });
 
-  input.addEventListener("keydown", e => {
+  // Pressionar Enter também pesquisa
+  campoInput.addEventListener("keydown", e => {
     if (e.key === "Enter") {
-      mostrarResultados();
-      suggestions.innerHTML = "";
+      mostrarResultados(campoInput.value, propriedade);
+      campoSugestoes.innerHTML = "";
     }
   });
 }
 
-// Função para mostrar resultados com todos os filtros
-function mostrarResultados() {
-  const tbody = document.querySelector("#results tbody");
+// Mostrar resultados na tabela
+function mostrarResultados(valor, campo) {
   tbody.innerHTML = "";
-
-  const fabricanteFiltro = document.getElementById("searchFabricante").value.toLowerCase();
-  const codigoFiltro = document.getElementById("searchCodigo").value.toLowerCase();
-  const produtoFiltro = document.getElementById("searchProduto").value.toLowerCase();
-
-  const filtrados = dados.filter(d => {
-    const f = fabricanteFiltro ? d.fabricante.toLowerCase().includes(fabricanteFiltro) : true;
-    const c = codigoFiltro ? d.codigo.toLowerCase() === codigoFiltro : true;
-    const p = produtoFiltro ? d.produto.toLowerCase().includes(produtoFiltro) : true;
-    return f && c && p;
-  });
-
-  console.log("Filtrados:", filtrados); // veja se aparece algo aqui
-
+  const filtrados = dados.filter(d => d[campo]?.toLowerCase().includes(valor.toLowerCase()));
   filtrados.forEach(d => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
@@ -98,3 +59,22 @@ function mostrarResultados() {
     tbody.appendChild(tr);
   });
 }
+
+// Aplicar a função para cada campo
+configurarPesquisa(
+  document.getElementById("searchFabricante"),
+  document.getElementById("suggestionsFabricante"),
+  "fabricante"
+);
+
+configurarPesquisa(
+  document.getElementById("searchCodigo"),
+  document.getElementById("suggestionsCodigo"),
+  "codigo"
+);
+
+configurarPesquisa(
+  document.getElementById("searchProduto"),
+  document.getElementById("suggestionsProduto"),
+  "produto"
+); 
