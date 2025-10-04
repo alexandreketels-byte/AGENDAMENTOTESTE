@@ -5,8 +5,8 @@ fetch("dados.csv")
   .then(response => response.text())
   .then(text => {
     dados = text.split("\n").slice(1).map(linha => {
-      const [FABRICANTE, DATA, CODIGO, PRODUTO, QTD] = linha.split(",");
-      return { FABRICANTE, DATA, CODIGO, PRODUTO, QTD };
+      const [fabricante, data, codigo, produto, qtd] = linha.split(",");
+      return { fabricante, data, codigo, produto, qtd };
     });
   });
 
@@ -20,14 +20,14 @@ search.addEventListener("input", () => {
   const termo = search.value.toLowerCase();
   suggestions.innerHTML = "";
   if (termo.length > 0) {
-    const filtrados = dados.filter(d => d.FABRICANTE.toLowerCase().includes(termo));
+    const filtrados = dados.filter(d => d.fabricante.toLowerCase().includes(termo));
     filtrados.slice(0, 5).forEach(d => {
       const li = document.createElement("li");
-      li.textContent = d.FABRICANTE;
+      li.textContent = d.fabricante;
       li.onclick = () => {
-        search.value = d.FABRICANTE;
+        search.value = d.fabricante;
         suggestions.innerHTML = "";
-        mostrarResultados(d.FABRICANTE);
+        mostrarResultados(d.fabricante);
       };
       suggestions.appendChild(li);
     });
@@ -45,15 +45,15 @@ search.addEventListener("keydown", e => {
 // Mostrar tabela
 function mostrarResultados(fabricante) {
   tbody.innerHTML = "";
-  const filtrados = dados.filter(d => d.cidade.toLowerCase() === cidade.toLowerCase());
+  const filtrados = dados.filter(d => d.fabricante.toLowerCase() === cidade.toLowerCase());
   filtrados.forEach(d => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${d.FABRICANTE}</td>
-      <td>${d.DATA}</td>
-      <td>${d.CODIGO}</td>
-      <td>${d.PRODUTO}</td>
-      <td>${d.QTD}</td>
+      <td>${d.fabricante}</td>
+      <td>${d.data}</td>
+      <td>${d.codigo}</td>
+      <td>${d.produto}</td>
+      <td>${d.qtd}</td>
     `;
     tbody.appendChild(tr);
   });
