@@ -20,14 +20,14 @@ search.addEventListener("input", () => {
   const termo = search.value.toLowerCase();
   suggestions.innerHTML = "";
   if (termo.length > 0) {
-    const filtrados = dados.filter(d => d.fabricante.toLowerCase().includes(termo));
+    const filtrados = dados.filter(d => d.FABRICANTE.toLowerCase().includes(termo));
     filtrados.slice(0, 5).forEach(d => {
       const li = document.createElement("li");
-      li.textContent = d.fabricante;
+      li.textContent = d.FABRICANTE;
       li.onclick = () => {
-        search.value = d.fabricante;
+        search.value = d.FABRICANTE;
         suggestions.innerHTML = "";
-        mostrarResultados(d.fabricante);
+        mostrarResultados(d.FABRICANTE);
       };
       suggestions.appendChild(li);
     });
@@ -49,11 +49,11 @@ function mostrarResultados(fabricante) {
   filtrados.forEach(d => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${d.fabricante}</td>
-      <td>${d.data}</td>
-      <td>${d.codigo}</td>
-      <td>${d.produto}</td>
-      <td>${d.qtd}</td>
+      <td>${d.FABRICANTE}</td>
+      <td>${d.DATA}</td>
+      <td>${d.CODIGO}</td>
+      <td>${d.PRODUTO}</td>
+      <td>${d.QTD}</td>
     `;
     tbody.appendChild(tr);
   });
