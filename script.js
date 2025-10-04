@@ -78,13 +78,13 @@ function mostrarResultados() {
   const produtoFiltro = document.getElementById("searchProduto").value.toLowerCase();
 
   const filtrados = dados.filter(d => {
-    const f = d.fabricante.toLowerCase().includes(fabricanteFiltro);
+    const f = fabricanteFiltro ? d.fabricante.toLowerCase().includes(fabricanteFiltro) : true;
     const c = codigoFiltro ? d.codigo.toLowerCase() === codigoFiltro : true;
-    const p = produtoFiltro
-      ? levenshtein(d.produto.toLowerCase(), produtoFiltro) <= 2
-      : true; // fuzzy para produto
+    const p = produtoFiltro ? d.produto.toLowerCase().includes(produtoFiltro) : true;
     return f && c && p;
   });
+
+  console.log("Filtrados:", filtrados); // veja se aparece algo aqui
 
   filtrados.forEach(d => {
     const tr = document.createElement("tr");
@@ -98,8 +98,3 @@ function mostrarResultados() {
     tbody.appendChild(tr);
   });
 }
-
-// Configura os 3 campos de pesquisa
-setupSearch("searchFabricante", "suggestionsFabricante", "fabricante", false);
-setupSearch("searchCodigo", "suggestionsCodigo", "codigo", true);
-setupSearch("searchProduto", "suggestionsProduto", "produto", false, true); // fuzzy
