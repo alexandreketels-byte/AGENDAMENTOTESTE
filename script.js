@@ -5,8 +5,8 @@ fetch("dados.csv")
   .then(response => response.text())
   .then(text => {
     dados = text.split("\n").slice(1).map(linha => {
-      const [cidade, transportadora, uf, prazo, tipo] = linha.split(",");
-      return { cidade, transportadora, uf, prazo, tipo };
+      const [fabricante, data, codigo, produto, qtd] = linha.split(",");
+      return { fabricante, data, codigo, produto, qtd };
     });
   });
 
@@ -23,11 +23,11 @@ search.addEventListener("input", () => {
     const filtrados = dados.filter(d => d.cidade.toLowerCase().includes(termo));
     filtrados.slice(0, 5).forEach(d => {
       const li = document.createElement("li");
-      li.textContent = d.cidade;
+      li.textContent = d.fabricante;
       li.onclick = () => {
-        search.value = d.cidade;
+        search.value = d.fabricante;
         suggestions.innerHTML = "";
-        mostrarResultados(d.cidade);
+        mostrarResultados(d.fabricante);
       };
       suggestions.appendChild(li);
     });
@@ -49,11 +49,11 @@ function mostrarResultados(cidade) {
   filtrados.forEach(d => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${d.cidade}</td>
-      <td>${d.transportadora}</td>
-      <td>${d.uf}</td>
-      <td>${d.prazo}</td>
-      <td>${d.tipo}</td>
+      <td>${d.fabricante}</td>
+      <td>${d.data}</td>
+      <td>${d.codigo}</td>
+      <td>${d.produto}</td>
+      <td>${d.qtd}</td>
     `;
     tbody.appendChild(tr);
   });
