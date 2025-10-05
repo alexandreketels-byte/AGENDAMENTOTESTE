@@ -5,8 +5,8 @@ fetch("dados.csv")
   .then(response => response.text())
   .then(text => {
     dados = text.split("\n").slice(1).map(linha => {
-      const [fabricante, data, codigo, produto, qtd] = linha.split(",");
-      return { fabricante, data, codigo, produto, qtd };
+      const [fabricante, data, codigo, produto, qtd, obs] = linha.split(",");
+      return { fabricante, data, codigo, produto, qtd, obs };
     });
   });
 
@@ -55,6 +55,7 @@ function mostrarResultados(valor, campo) {
       <td>${d.codigo}</td>
       <td>${d.produto}</td>
       <td>${d.qtd}</td>
+      <td>${d.obs}</td>
     `;
     tbody.appendChild(tr);
   });
