@@ -10,7 +10,9 @@ fetch("dados.csv")
     });
 
     // Mostra a data e hora da última atualização
-    const dataAgora = new Date();
+    const const ultimaAtualizacao = "06/10/2025 12:45"; // coloque aqui a data e hora da última atualização real
+document.getElementById("ultimaAtualizacao").textContent =
+  "Última atualização: " + ultimaAtualizacao;
     const opcoes = { 
       day: "2-digit", month: "2-digit", year: "numeric", 
       hour: "2-digit", minute: "2-digit" 
