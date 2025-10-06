@@ -1,24 +1,27 @@
-   let dados = [];
+let dados = [];
 
-// Carrega o CSV
+// Carrega o CSV e obtém a data real de modificação
 fetch("dados.csv")
-  .then(response => response.text())
+  .then(response => {
+    const dataArquivo = new Date(response.headers.get("Last-Modified"));
+    if (!isNaN(dataArquivo)) {
+      const opcoes = { 
+        day: "2-digit", month: "2-digit", year: "numeric", 
+        hour: "2-digit", minute: "2-digit" 
+      };
+      document.getElementById("ultimaAtualizacao").textContent =
+        "Última atualização: " + dataArquivo.toLocaleString("pt-BR", opcoes);
+    } else {
+      document.getElementById("ultimaAtualizacao").textContent =
+        "Última atualização: (não disponível)";
+    }
+    return response.text();
+  })
   .then(text => {
     dados = text.split("\n").slice(1).map(linha => {
       const [fabricante, data, codigo, produto, qtd, obs] = linha.split(",");
       return { fabricante, data, codigo, produto, qtd, obs };
     });
-
-    // Mostra a data e hora da última atualização
-    const const ultimaAtualizacao = "06/10/2025 12:45"; // coloque aqui a data e hora da última atualização real
-document.getElementById("ultimaAtualizacao").textContent =
-  "Última atualização: " + ultimaAtualizacao;
-    const opcoes = { 
-      day: "2-digit", month: "2-digit", year: "numeric", 
-      hour: "2-digit", minute: "2-digit" 
-    };
-    document.getElementById("ultimaAtualizacao").textContent = 
-      "Última atualização: " + dataAgora.toLocaleString("pt-BR", opcoes);
   });
 
 // Elementos
@@ -89,4 +92,4 @@ configurarPesquisa(
   document.getElementById("searchProduto"),
   document.getElementById("suggestionsProduto"),
   "produto"
-); 
+);
