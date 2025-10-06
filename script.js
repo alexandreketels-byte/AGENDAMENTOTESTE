@@ -9,6 +9,21 @@ fetch("dados.csv")
       return { fabricante, data, codigo, produto, qtd, obs };
     });
   });
+.then(text => {
+    dados = text.split("\n").slice(1).map(linha => {
+      const [fabricante, data, codigo, produto, qtd, obs] = linha.split(",");
+      return { fabricante, data, codigo, produto, qtd, obs };
+    });
+
+    // Mostra a data e hora da última atualização
+    const dataAgora = new Date();
+    const opcoes = { 
+      day: "2-digit", month: "2-digit", year: "numeric", 
+      hour: "2-digit", minute: "2-digit" 
+    };
+    document.getElementById("ultimaAtualizacao").textContent = 
+      "Última atualização: " + dataAgora.toLocaleString("pt-BR", opcoes);
+  });
 
 // Elementos
 const tbody = document.querySelector("#results tbody");
