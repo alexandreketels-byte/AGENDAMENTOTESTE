@@ -9,11 +9,6 @@ fetch("dados.csv")
       return { fabricante, data, codigo, produto, qtd, obs };
     });
   });
-.then(text => {
-    dados = text.split("\n").slice(1).map(linha => {
-      const [fabricante, data, codigo, produto, qtd, obs] = linha.split(",");
-      return { fabricante, data, codigo, produto, qtd, obs };
-    });
 
     // Mostra a data e hora da última atualização
     const dataAgora = new Date();
