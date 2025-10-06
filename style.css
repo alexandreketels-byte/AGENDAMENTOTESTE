@@ -80,3 +80,8 @@ th {
   color: #ffeb3b;
   text-shadow: 1px 1px 2px black;
 }
+
+td:last-child {
+  color: #ff4444; /* vermelho vivo */
+  font-weight: bold;
+}
