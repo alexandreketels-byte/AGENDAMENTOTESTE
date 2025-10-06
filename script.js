@@ -8,7 +8,6 @@ fetch("dados.csv")
       const [fabricante, data, codigo, produto, qtd, obs] = linha.split(",");
       return { fabricante, data, codigo, produto, qtd, obs };
     });
-  });
 
     // Mostra a data e hora da última atualização
     const dataAgora = new Date();
