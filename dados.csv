@@ -18,7 +18,7 @@ TCL,06/10/25,110005,Ar Cond. TAC-18CHTG2-INV TCL T-PRO 2.0  18 Quente,60,
 TCL,06/10/25,110202,Ar Cond. TAC-55CSG/CT-INV TCL Cassete  55 Frio,40,
 MIDEA,08/10/25,49064,Evap. 42BQA024510HC Built-in Versatile 220V M - Carrier,4,
 MIDEA,08/10/25,49022,Kit Controle K42BC5LC Built-In s/ fio ,4,
-DAIKIN,07/10/25,5242,Evap K7 FCQ36AVL Sky Air - QF - Daikin,15,
+DAIKIN,07/10/25,5242,Evap K7 FCQ36AVL Sky Air - QF - Daikin,15,teste
 DAIKIN,07/10/25,5243,Cond K7 RZQ36AVL Sky Air - QF - Daikin,15,
 DAIKIN,07/10/25,5246,Evap K7 FCQ48AVL Sky Air - QF - Daikin,12,
 DAIKIN,07/10/25,5247,Cond K7 RZQ48AVL Sky Air - QF - Daikin,12,
@@ -100,5 +100,6 @@ GREE,14/10/25,7187,Evap. GWH18ATD-D6DNA1A/I - G-Top Auto Inverter - Gree,205,
 GREE,14/10/25,7188,Cond. GWH18ATD-D6DNA1A/O - G-Top Auto Inverter - Gree,205,
 GREE,14/10/25,7191,Evap. GWH24ATE-D6DNA1A/I - G-Top Auto Inverter - Gree,12,
 GREE,14/10/25,7192,Cond. GWH24ATE-D6DNA1A/O - G-Top Auto Inverter - Gree,12,
+
 
 
