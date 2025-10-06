@@ -32,7 +32,7 @@ DAIKIN,08/10/25,5149,Cond. RKC09T5VL Full Inverter R-32  09 Frio - Daikin,20,
 DAIKIN,08/10/25,5153,Cond. RKC12T5VL Full Inverter R-32  12 Frio - Daikin,20,
 DAIKIN,08/10/25,5174,Evap. FTHP18S5VL EcoSwing Smart Gold R-32  18 Quente - Daikin,14,
 DAIKIN,08/10/25,5172,Evap. FTKP18S5VL EcoSwing Smart Gold R-32  18 Frio - Daikin,20,
-DAIKIN,08/10/25,5175,Cond. RHP18S5VL EcoSwing Smart Gold R-32  18 Quente - Daikin,14,
+DAIKIN,08/10/25,5175,Cond. RHP18S5VL EcoSwing Smart Gold R-32  18 Quente - Daikin,14, teste 2
 DAIKIN,08/10/25,5173,Cond. RKP18S5VL EcoSwing Smart Gold R-32  18 Frio - Daikin,20,
 MIDEA,09/10/25,40015,Cond. 38EZVQA24M5 Inverter AI Ecomaster (R32) Q/F - Midea,100,
 MIDEA,09/10/25,40014,Evap. 42EZVQA24M5 Inverter AI Ecomaster (R32) Q/F - Midea,100,
@@ -100,6 +100,7 @@ GREE,14/10/25,7187,Evap. GWH18ATD-D6DNA1A/I - G-Top Auto Inverter - Gree,205,
 GREE,14/10/25,7188,Cond. GWH18ATD-D6DNA1A/O - G-Top Auto Inverter - Gree,205,
 GREE,14/10/25,7191,Evap. GWH24ATE-D6DNA1A/I - G-Top Auto Inverter - Gree,12,
 GREE,14/10/25,7192,Cond. GWH24ATE-D6DNA1A/O - G-Top Auto Inverter - Gree,12,
+
 
 
 
