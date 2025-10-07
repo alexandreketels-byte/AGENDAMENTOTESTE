@@ -1,88 +1,75 @@
 body {
-  margin: 0;
-  padding: 0;
   font-family: Arial, sans-serif;
-  background: url('fundo.jpeg') no-repeat center center fixed;
+  background: url("fundo.jpg") no-repeat center center fixed;
   background-size: cover;
   color: white;
+  text-align: center;
 }
 
 .container {
-  text-align: center;
-  margin-top: 15vh;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
 }
 
 h1 {
-  text-align: center;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
 }
 
-#search {
-  padding: 10px;
+/* ======== BOTÕES DE MENU ======== */
+.menu-botoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.botao-menu {
+  display: inline-block;
+  background-color: #FFD700; /* amarelo */
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  width: 320px;
+  text-align: center;
+}
+
+.botao-menu:hover {
+  background-color: #ffea00;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #ffd700;
+}
+
+/* ======== CAMPOS DE PESQUISA ======== */
+input[type="text"] {
   width: 300px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-#suggestions {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-width: 300px;
-  margin: 0 auto;
-  background: rgba(0,0,0,0.7);
-  border-radius: 5px;
-  position: absolute;
-  left: 0;
-  right: 0;
-}
-
-#suggestions li {
   padding: 8px;
-  cursor: pointer;
-}
-
-#suggestions li:hover {
-  background: rgba(255,255,255,0.2);
+  margin: 6px;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
 }
 
 table {
-  margin: 30px auto;
+  width: 100%;
   border-collapse: collapse;
-  width: 80%;
-  background: rgba(0,0,0,0.7);
-  border-radius: 10px;
-  overflow: hidden;
+  margin-top: 15px;
 }
 
 th, td {
-  padding: 12px;
-  border: 1px solid rgba(255,255,255,0.3);
+  padding: 8px;
+  border: 1px solid #333;
 }
 
 th {
-  background: rgba(0,0,0,0.9);
-}
-.link-uf {
-  color: yellow;
-  font-weight: bold;
-  text-decoration: underline;
-  display: inline-block;
-  margin-bottom: 20px;
-}
-.link-uf:hover {
-  color: gold;
-}
-#ultimaAtualizacao {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #ffeb3b;
-  text-shadow: 1px 1px 2px black;
+  background-color: #000;
 }
 
-td:last-child {
-  color: #ff4444; /* vermelho vivo */
-  font-weight: bold;
+#ultimaAtualizacao {
+  color: #FFD700;
+  margin-top: 15px;
 }
