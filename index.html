@@ -6,6 +6,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<nav class="menu">
+  <a href="nfs_sem_agendamento.html" class="ativo">NF’s sem agendamento</a>
+  <a href="calendario.html">Calendário</a>
+</nav>
+
   <div class="container">
     <h1>AGENDAMENTOS</h1>
 
@@ -14,6 +20,12 @@
         CALENDÁRIO
       </a>
     </p>
+   
+    <!-- Link movido abaixo do calendário -->
+<div class="link-container" style="margin-top: 20px;">
+  <a href="nfsfaturadassemagendamento.html" target="_blank" class="link-uf">NF’S FATURADAS SEM AGENDAMENTO</a>
+</div>
+    <div style="margin-bottom: 15px;"></div>
 
     <!-- Campos de pesquisa -->
     <input type="text" id="searchFabricante" placeholder="Pesquisar Fabricante..." autocomplete="off">
@@ -43,5 +55,6 @@
   </div>
   
   <script src="script.js"></script>
+
 </body>
 </html>
