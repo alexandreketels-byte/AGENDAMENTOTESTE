@@ -2,24 +2,129 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>AGENDAMENTOS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendamentos</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('fundo.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    .container {
+      text-align: center;
+      margin-top: 15vh;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+
+    /* Menu de links */
+    .menu-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .menu-links a {
+      background-color: yellow;
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 12px 20px;
+      margin: 8px 0;
+      border-radius: 5px;
+      width: 200px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .menu-links a:hover {
+      background-color: gold;
+      color: black;
+    }
+
+    /* Campos de pesquisa */
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    ul.suggestions {
+      list-style: none;
+      margin: 0 auto 10px auto;
+      padding: 0;
+      max-width: 300px;
+      background: rgba(0,0,0,0.7);
+      border-radius: 5px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+    }
+
+    ul.suggestions li {
+      padding: 8px;
+      cursor: pointer;
+      color: white;
+    }
+
+    ul.suggestions li:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    table {
+      margin: 30px auto;
+      border-collapse: collapse;
+      width: 80%;
+      background: rgba(0,0,0,0.7);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    th {
+      background: rgba(0,0,0,0.9);
+    }
+
+    td:last-child {
+      color: #ff4444; /* vermelho vivo */
+      font-weight: bold;
+    }
+
+    #ultimaAtualizacao {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ffeb3b;
+      text-shadow: 1px 1px 2px black;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>AGENDAMENTOS</h1>
 
-    <p>
-      <a href="CALENDARIO.jpeg" target="_blank" class="link-uf">
-        CALENDÁRIO
-      </a>
-    </p>
-   
-    <!-- Link movido abaixo do calendário -->
-<div class="link-container" style="margin-top: 20px;">
-  <a href="nfsfaturadassemagendamento.html" target="_blank" class="link-uf">NF’S FATURADAS SEM AGENDAMENTO</a>
-</div>
-    <div style="margin-bottom: 15px;"></div>
+    <!-- Menu links -->
+    <div class="menu-links">
+      <a href="CALENDARIO.jpeg" target="_blank">CALENDÁRIO</a>
+      <a href="NFs_sem_agendamento.html" target="_blank">NF'S FATURADAS SEM AGENDAMENTO</a>
+    </div>
 
     <!-- Campos de pesquisa -->
     <input type="text" id="searchFabricante" placeholder="Pesquisar Fabricante..." autocomplete="off">
@@ -44,11 +149,10 @@
       </thead>
       <tbody></tbody>
     </table>
-    
+
     <p id="ultimaAtualizacao">Última atualização: --</p>
   </div>
-  
-  <script src="script.js"></script>
 
+  <script src="script.js"></script>
 </body>
 </html>
