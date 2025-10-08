@@ -95,7 +95,7 @@ td:last-child {
   border-radius: 5px;
   text-decoration: none;
   display: inline-block;
-  margin: 20px;
+  margin: 5px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
