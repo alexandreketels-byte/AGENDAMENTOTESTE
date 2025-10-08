@@ -86,3 +86,21 @@ td:last-child {
   color: #ff4444; /* vermelho vivo */
   font-weight: bold;
 }
+.botao-menu {
+  background-color: yellow; /* botão amarelo */
+  color: black; /* texto preto */
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.botao-menu:hover {
+  background-color: orange; /* muda a cor de fundo ao passar o mouse */
+  color: white; /* muda a cor do texto ao passar o mouse */
+}
